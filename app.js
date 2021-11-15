@@ -1,6 +1,11 @@
 const express = require("express");
 const app = express();
-const date = require("./data.js");
+const data = require("./data.js");
+const utils = require("./utils.json");
+
+
+
+
 
 app.listen(3000, () => {
     console.log("Server esta corriendo por el puerto 3000")
@@ -24,6 +29,33 @@ app.get("/hola", (req, res) => {
 
 //Envio "data" que lo importe del otro archivo js
 
-app.get ("/", (req, res) => {
-    res.send(date)
+app.get("/", (req, res) => {
+     let info =data.productos[1]
+     res.send(info)
 });
+
+
+// Peticion POST
+// Este a comparacion de .GET( que da informacion), con POST vamos a recibir informacion
+
+app.use(express.json());
+
+
+app.post("./home", (req, res) => {
+    let pedir = req.body ;
+    console.log(pedir);
+    res.send("recibido!");
+});
+
+
+
+
+
+
+
+
+
+
+
+//En caso que no tome o reconozca lo enviado, hay que sacarle las comillas al JSON 
+//JSON.parse(archivo) para que lo tome
